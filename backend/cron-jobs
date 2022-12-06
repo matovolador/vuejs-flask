@@ -1,0 +1,3 @@
+# must be ended with a new line "LF" (Unix) and not "CRLF" (Windows)
+* * * * * /app/auctions.py & sleep 10;done
+# An empty line is required at the end of this file for a valid cron file.

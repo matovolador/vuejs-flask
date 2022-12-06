@@ -1,0 +1,6 @@
+venv
+.vscode
+.vsc
+__pycache__
+*.ZoneIdentifier
+node_modules

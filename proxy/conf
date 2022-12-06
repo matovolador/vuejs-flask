@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    server_name localhost;
+    location / {
+        proxy_pass http://frontend:5080/;
+    }
+    location /api/ {
+        proxy_pass http://backend:5050/;
+    }
+}

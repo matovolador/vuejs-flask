@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  proxy:
+    build: proxy
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - auction-network
+
+  frontend:
+    build: frontend
+    ports:
+      - 5050:5050
+    networks:
+      - auction-network
+    depends_on:
+      - 'proxy'
+
+  backend:
+    build: backend
+    ports:
+      - 5000:5000
+    networks:
+      - auction-network
+      - db-network
+    depends_on:
+      - 'proxy'
+      - 'db'
+    command: ["./wait-for-it.sh","db:5432","--","./start_app.sh"]
+    volumes:
+      - ./backend/coverage:/app/coverage
+  db:
+    image: postgres:13
+    restart: always
+    networks:
+      - db-network
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=auction_db
+      - PGPORT=5432
+
+networks:
+  auction-network:
+    driver: bridge
+  db-network:
+    driver: bridge
+volumes:
+  db-auction-data:

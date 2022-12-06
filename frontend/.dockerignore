@@ -1,0 +1,9 @@
+_labs
+venv
+.vscode
+*Zone.Identifier
+__pycache__
+flask_session
+uploads
+!uploads/.gitkeep
+node_modules
